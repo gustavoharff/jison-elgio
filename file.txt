@@ -1,0 +1,5 @@
+integer Zero.
+integer Teste.
+Lixo = 34.
+Lixo = 34.
+se Lixo maior zero.
