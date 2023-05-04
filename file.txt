@@ -1,9 +1,14 @@
 integer Zero. # minha variavel
 integer Teste.
 Lixo = 34. # teste
-Lixo = 34.
+Lixo = 21.
 se Lixo maior zero.  # teste
 entao.
+inicio.
+        Lixo = zero.
+        Teste = 300.
+fim.
+funcao _Teste.
 inicio.
         Lixo = zero.
         Teste = 300.

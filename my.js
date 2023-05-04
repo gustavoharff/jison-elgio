@@ -14,6 +14,7 @@ exports.grammar = {
     },
     rules: [
       ["([1-9][0-9]*)", "return 'Numero'"],
+      ["(_[A-Z][a-z]{2,})", "return 'IdentificadorFuncao'"],
       ["integer", "return 'Inteiro'"],
       ["se", "return 'Se'"],
       ["entao", "return 'Entao'"],
@@ -22,6 +23,7 @@ exports.grammar = {
       ["maior", "return 'Maior'"],
       ["menor", "return 'Menor'"],
       ["igual", "return 'Igual'"],
+      ["funcao", "return 'FuncaoToken'"],
       ["diferente", "return 'Diferente'"],
       ["zero", "return 'Zero'"],
       ["([A-Z][a-z]{2,})", "return 'Identificador'"],
@@ -42,6 +44,10 @@ exports.grammar = {
       "AtribuicaoLista",
       "DeclaracaoLista AtribuicaoLista",
       "DeclaracaoLista AtribuicaoLista Condicao",
+      "DeclaracaoLista AtribuicaoLista Funcao",
+      "DeclaracaoLista AtribuicaoLista Condicao Funcao",
+      "DeclaracaoLista AtribuicaoLista Funcao Condicao",
+      "DeclaracaoLista AtribuicaoLista Condicao Funcao Condicao",
     ],
 
     "Atribuicao": [
@@ -76,6 +82,12 @@ exports.grammar = {
     ],
     "Condicao": [
       "CondicaoSe CondicaoEntao CondicaoInicio Value CondicaoFim",
+    ],
+    "FuncaoDeclaracao": [
+      "FuncaoToken Espaco IdentificadorFuncao Ponto NovaLinha",
+    ],
+    "Funcao": [
+      "FuncaoDeclaracao CondicaoInicio Value CondicaoFim"
     ],
 
     "Tipos": ["Inteiro", "Caracteres"],
