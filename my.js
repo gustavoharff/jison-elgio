@@ -1,7 +1,7 @@
 var Generator = require("jison").Parser;
 
 exports.grammar = {
-  comment: "ECMA-262 5th Edition, 15.12.1 The JSON Grammar.",
+  Comentario: "ECMA-262 5th Edition, 15.12.1 The JSON Grammar.",
   author: "Zach Carter",
 
   lex: {
@@ -13,67 +13,79 @@ exports.grammar = {
       frac: "(?:\\.[0-9]+)",
     },
     rules: [
-      ["([1-9][0-9]*)", "return 'NUMBER'"],
-      ["integer", "return 'INTEGER'"],
-      ["se", "return 'IF'"],
-      ["maior", "return 'BIGGER'"],
-      ["menor", "return 'LESS'"],
-      ["igual", "return 'EQUALS'"],
-      ["diferente", "return 'DIFFERENT'"],
-      ["zero", "return 'ZERO'"],
-      ["([A-Z][a-z]{2,})", "return 'STRING'"],
-      ["[.]", "return 'DOT'"],
+      ["([1-9][0-9]*)", "return 'Numero'"],
+      ["integer", "return 'Inteiro'"],
+      ["se", "return 'Se'"],
+      ["entao", "return 'Entao'"],
+      ["inicio", "return 'Inicio'"],
+      ["fim", "return 'Fim'"],
+      ["maior", "return 'Maior'"],
+      ["menor", "return 'Menor'"],
+      ["igual", "return 'Igual'"],
+      ["diferente", "return 'Diferente'"],
+      ["zero", "return 'Zero'"],
+      ["([A-Z][a-z]{2,})", "return 'Identificador'"],
+      ["#.*?(?=\r?\n)", "return 'Comentario'"],
+      ["[.]", "return 'Ponto'"],
       ["(=)", "return '='"],
-      ["([ \t]+)", "return 'SPACE'"],
-      ["\\n", "return 'NEWLINE'"],
+      ["([ \t]+)", "return 'Espaco'"],
+      ["\\n", "return 'NovaLinha'"],
     ],
   },
 
-  tokens: "INTEGER STRING DOT = SPACE se BIGGER",
+  tokens: "Identificador",
   start: "Value",
 
   bnf: {
-    "Value": ["DeclarationList AssignmentList Condition"],
+    "Value": [
+      "DeclaracaoLista",
+      "AtribuicaoLista",
+      "DeclaracaoLista AtribuicaoLista",
+      "DeclaracaoLista AtribuicaoLista Condicao",
+    ],
 
-    "Assignment": ["STRING SPACE = SPACE NUMBER DOT NEWLINE"],
-    "Declaration": ["INTEGER SPACE STRING DOT NEWLINE"],
-    "Condition": ["IF SPACE STRING SPACE Comparision SPACE Numbers DOT"],
+    "Atribuicao": [
+      "Identificador Espaco = Espaco Numeros Ponto NovaLinha",
+      "Identificador Espaco = Espaco Numeros Ponto Espaco Comentario NovaLinha",
+      "Espaco Identificador Espaco = Espaco Numeros Ponto NovaLinha",
+      "Espaco Identificador Espaco = Espaco Numeros Ponto Espaco Comentario NovaLinha",
+    ],
+    "Declaracao": [
+      "Tipos Espaco Identificador Ponto NovaLinha",
+      "Tipos Espaco Identificador Ponto Espaco Comentario NovaLinha",
+      "Espaco Tipos Espaco Identificador Ponto NovaLinha",
+      "Espaco Tipos Espaco Identificador Ponto Espaco Comentario NovaLinha",
+    ],
+    "CondicaoSe": [
+      "Se Espaco Identificador Espaco Comparacao Espaco Numeros Ponto NovaLinha",
+      "Se Espaco Identificador Espaco Comparacao Espaco Numeros Ponto Espaco Comentario NovaLinha",
+    ],
+    "CondicaoEntao": [
+      "Entao Ponto NovaLinha",
+      "Entao Ponto Espaco Comentario NovaLinha",
+    ],
+    "CondicaoInicio": [
+      "Inicio Ponto NovaLinha",
+      "Inicio Ponto Espaco Comentario NovaLinha",
+    ],
+    "CondicaoFim": [
+      "Fim Ponto",
+      "Fim Ponto Espaco Comentario",
+      "Fim Ponto NovaLinha",
+      "Fim Ponto Espaco Comentario NovaLinha",
+    ],
+    "Condicao": [
+      "CondicaoSe CondicaoEntao CondicaoInicio Value CondicaoFim",
+    ],
 
-    "DeclarationList": ["Declaration", "DeclarationList Declaration"],
-    "AssignmentList": ["Assignment", "AssignmentList Assignment"],
+    "Tipos": ["Inteiro", "Caracteres"],
 
-    "Comparision": ["BIGGER", "LESS", "EQUALS", "DIFFERENT"],
+    "DeclaracaoLista": ["Declaracao", "DeclaracaoLista Declaracao"],
+    "AtribuicaoLista": ["Atribuicao", "AtribuicaoLista Atribuicao"],
 
-    "Numbers": ["NUMBER", "ZERO"],
+    "Comparacao": ["Maior", "Menor", "Igual", "Diferente"],
 
-    // "JSONNullLiteral": [ "NULL" ],
-
-    // "JSONNumber": [ "NUMBER" ],
-
-    // "JSONBooleanLiteral": [ "TRUE", "FALSE" ],
-
-    // "JSONText": [ "JSONValue" ],
-
-    // "JSONValue": [ "JSONNullLiteral",
-    //                "JSONBooleanLiteral",
-    //                "JSONString",
-    //                "JSONNumber",
-    //                "JSONObject",
-    //                "JSONArray" ],
-
-    // "JSONObject": [ "{ }",
-    //                 "{ JSONMemberList }" ],
-
-    // "JSONMember": [ "JSONString : JSONValue" ],
-
-    // "JSONMemberList": [ "JSONMember",
-    //                       "JSONMemberList , JSONMember" ],
-
-    // "JSONArray": [ "[ ]",
-    //                "[ JSONElementList ]" ],
-
-    // "JSONElementList": [ "JSONValue",
-    //                      "JSONElementList , JSONValue" ]
+    "Numeros": ["Numero", "Zero"],
   },
 };
 

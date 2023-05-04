@@ -1,5 +1,10 @@
-integer Zero.
+integer Zero. # minha variavel
 integer Teste.
+Lixo = 34. # teste
 Lixo = 34.
-Lixo = 34.
-se Lixo maior zero.
+se Lixo maior zero.  # teste
+entao.
+inicio.
+        Lixo = zero.
+        Teste = 300.
+fim.
