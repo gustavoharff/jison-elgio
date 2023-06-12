@@ -1,9 +1,6 @@
 var Generator = require("jison").Parser;
 
 exports.grammar = {
-  Comentario: "ECMA-262 5th Edition, 15.12.1 The JSON Grammar.",
-  author: "Zach Carter",
-
   lex: {
     macros: {
       digit: "[0-9]",
@@ -15,7 +12,7 @@ exports.grammar = {
     rules: [
       ["([1-9][0-9]*)", "return 'Numero'"],
       ["(_[A-Z][a-z]{2,})", "return 'IdentificadorFuncao'"],
-      ["integer", "return 'Inteiro'"],
+      ["inteiro", "return 'Inteiro'"],
       ["se", "return 'Se'"],
       ["entao", "return 'Entao'"],
       ["inicio", "return 'Inicio'"],
@@ -23,9 +20,16 @@ exports.grammar = {
       ["maior", "return 'Maior'"],
       ["menor", "return 'Menor'"],
       ["igual", "return 'Igual'"],
-      ["funcao", "return 'FuncaoToken'"],
+      ["elgio", "return 'Elgio'"],
       ["diferente", "return 'Diferente'"],
       ["zero", "return 'Zero'"],
+      ["[(]", "return '('"],
+      ["[)]", "return ')'"],
+      ["[,]", "return 'Virgula'"],
+      ["[+]", "return 'Mais'"],
+      ["[-]", "return 'Menos'"],
+      ["[x]", "return 'Multiplicacao'"],
+      ["[/]", "return 'Divisao'"],
       ["([A-Z][a-z]{2,})", "return 'Identificador'"],
       ["#.*?(?=\r?\n)", "return 'Comentario'"],
       ["[.]", "return 'Ponto'"],
@@ -55,6 +59,9 @@ exports.grammar = {
       "Identificador Espaco = Espaco Numeros Ponto Espaco Comentario NovaLinha",
       "Espaco Identificador Espaco = Espaco Numeros Ponto NovaLinha",
       "Espaco Identificador Espaco = Espaco Numeros Ponto Espaco Comentario NovaLinha",
+      "Identificador Espaco = Espaco Operacao Ponto NovaLinha",
+      "Identificador Espaco = Espaco Operacao Ponto Espaco Comentario NovaLinha",
+      "Espaco Identificador Espaco = Espaco Operacao Ponto Espaco Comentario NovaLinha",
     ],
     "Declaracao": [
       "Tipos Espaco Identificador Ponto NovaLinha",
@@ -63,8 +70,8 @@ exports.grammar = {
       "Espaco Tipos Espaco Identificador Ponto Espaco Comentario NovaLinha",
     ],
     "CondicaoSe": [
-      "Se Espaco Identificador Espaco Comparacao Espaco Numeros Ponto NovaLinha",
-      "Se Espaco Identificador Espaco Comparacao Espaco Numeros Ponto Espaco Comentario NovaLinha",
+      "Se Espaco Identificador Espaco OperadorLogico Espaco Numeros Ponto NovaLinha",
+      "Se Espaco Identificador Espaco OperadorLogico Espaco Numeros Ponto Espaco Comentario NovaLinha",
     ],
     "CondicaoEntao": [
       "Entao Ponto NovaLinha",
@@ -83,19 +90,49 @@ exports.grammar = {
     "Condicao": [
       "CondicaoSe CondicaoEntao CondicaoInicio Value CondicaoFim",
     ],
+    "FuncaoParametro": [
+      "Tipos Espaco Identificador",
+      "Tipos Espaco Identificador Virgula Espaco FuncaoParametro"
+    ],
     "FuncaoDeclaracao": [
-      "FuncaoToken Espaco IdentificadorFuncao Ponto NovaLinha",
+      "Tipos Espaco IdentificadorFuncao Espaco ( FuncaoParametro ) Ponto NovaLinha",
+      "Tipos Espaco IdentificadorFuncao Espaco ( ) Ponto NovaLinha",
     ],
     "Funcao": [
-      "FuncaoDeclaracao CondicaoInicio Value CondicaoFim"
+      "FuncaoDeclaracao CondicaoInicio Value CondicaoFim",
+      "FuncaoDeclaracao CondicaoInicio Value Elgio CondicaoFim"
+
     ],
 
-    "Tipos": ["Inteiro", "Caracteres"],
+    "Tipos": ["Inteiro"],
+
+    "ParametroFuncao": [
+      "Identificador",
+      "Identificador Virgula Espaco ParametroFuncao",
+      "Numeros",
+      "Numeros Virgula Espaco ParametroFuncao",
+    ],
+
+    "ChamadaFuncao": [
+      "IdentificadorFuncao Espaco ( ParametroFuncao )",
+    ],
+
+    "Operandos": [
+      "Numeros",
+      "ChamadaFuncao"
+    ],
+
+    "Operacao": [
+      "Operandos Espaco Operadores Espaco Operandos",
+      "Operacao Espaco Operadores Espaco Operandos",
+    ],
+
+    "Operadores": ["Mais", "Menos", "Multiplicacao", "Divisao"],
 
     "DeclaracaoLista": ["Declaracao", "DeclaracaoLista Declaracao"],
     "AtribuicaoLista": ["Atribuicao", "AtribuicaoLista Atribuicao"],
 
-    "Comparacao": ["Maior", "Menor", "Igual", "Diferente"],
+    "OperadorLogico": ["Maior", "Menor", "Igual", "Diferente"],
 
     "Numeros": ["Numero", "Zero"],
   },

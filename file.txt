@@ -1,15 +1,21 @@
-integer Zero. # minha variavel
-integer Teste.
+inteiro Zero. # minha variavel
+inteiro Teste.
 Lixo = 34. # teste
-Lixo = 21.
+Lixo = 21 + 30 + 40 x 50 / 70 + _Teste (30). #asdasd
 se Lixo maior zero.  # teste
 entao.
 inicio.
         Lixo = zero.
         Teste = 300.
 fim.
-funcao _Teste.
+inteiro _Teste (inteiro Asd).
 inicio.
         Lixo = zero.
-        Teste = 300.
+        Teste = 54.
+fim.
+se Lixo menor 30.
+entao.
+inicio.
+        Lixo = 10.
+        Teste = 54.
 fim.
