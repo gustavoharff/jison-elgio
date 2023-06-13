@@ -54,11 +54,16 @@ exports.grammar = {
       "DeclaracaoLista AtribuicaoLista Condicao Funcao Condicao",
     ],
 
+    "AtribuicaoValores": [
+      "Operandos",
+      "Elgio"
+    ],
+
     "Atribuicao": [
-      "Identificador Espaco = Espaco Numeros Ponto NovaLinha",
-      "Identificador Espaco = Espaco Numeros Ponto Espaco Comentario NovaLinha",
-      "Espaco Identificador Espaco = Espaco Numeros Ponto NovaLinha",
-      "Espaco Identificador Espaco = Espaco Numeros Ponto Espaco Comentario NovaLinha",
+      "Identificador Espaco = Espaco AtribuicaoValores Ponto NovaLinha",
+      "Identificador Espaco = Espaco AtribuicaoValores Ponto Espaco Comentario NovaLinha",
+      "Espaco Identificador Espaco = Espaco AtribuicaoValores Ponto NovaLinha",
+      "Espaco Identificador Espaco = Espaco AtribuicaoValores Ponto Espaco Comentario NovaLinha",
       "Identificador Espaco = Espaco Operacao Ponto NovaLinha",
       "Identificador Espaco = Espaco Operacao Ponto Espaco Comentario NovaLinha",
       "Espaco Identificador Espaco = Espaco Operacao Ponto Espaco Comentario NovaLinha",
