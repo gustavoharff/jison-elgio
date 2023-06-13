@@ -10,6 +10,17 @@ inicio.
 fim.
 inteiro _Teste (inteiro Asd).
 inicio.
+        enquanto Teste maior zero.
+        inicio.
+                inteiro _Teste (inteiro Asd).
+                inicio.
+                        Lixo = zero.
+                        Teste = 54.
+                        elgio = 40.
+                fim.
+                Lixo = 10.
+                Teste = 54.
+        fim.
         Lixo = zero.
         Teste = 54.
         elgio = 40.

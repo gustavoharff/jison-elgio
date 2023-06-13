@@ -21,6 +21,7 @@ exports.grammar = {
       ["menor", "return 'Menor'"],
       ["igual", "return 'Igual'"],
       ["elgio", "return 'Elgio'"],
+      ["enquanto", "return 'Enquanto'"],
       ["diferente", "return 'Diferente'"],
       ["zero", "return 'Zero'"],
       ["[(]", "return '('"],
@@ -44,21 +45,15 @@ exports.grammar = {
 
   bnf: {
     "Value": [
+      "Espaco Value",
       "DeclaracaoLista",
+      "DeclaracaoLista Value",
       "AtribuicaoLista",
-      "DeclaracaoLista AtribuicaoLista",
-      "DeclaracaoLista AtribuicaoLista Condicao",
-      "DeclaracaoLista AtribuicaoLista Funcao",
-      "DeclaracaoLista AtribuicaoLista Condicao Funcao",
-      "DeclaracaoLista AtribuicaoLista Funcao Condicao",
-      "DeclaracaoLista AtribuicaoLista Condicao Funcao Condicao",
-      "DeclaracaoLista AtribuicaoLista Funcao Condicao Funcao",
-      "Condicao",
-      "Funcao",
-      "Condicao Funcao",
-      "Funcao Condicao",
-      "Condicao Funcao Condicao",
-      "Funcao Condicao Funcao",
+      "AtribuicaoLista Value",
+      "Funcao Value",
+      "Condicao Value",
+      "LoopEnquanto Value",
+      ""
     ],
 
     "AtribuicaoValores": [
@@ -98,6 +93,7 @@ exports.grammar = {
     "CondicaoInicio": [
       "Inicio Ponto NovaLinha",
       "Inicio Ponto Espaco Comentario NovaLinha",
+      "Espaco CondicaoInicio"
     ],
     "CondicaoFim": [
       "Fim Ponto",
@@ -107,6 +103,13 @@ exports.grammar = {
     ],
     "Condicao": [
       "CondicaoSe CondicaoEntao CondicaoInicio Value CondicaoFim",
+    ],
+    "LoopEnquantoOperandos": [
+      "Numeros",
+      "Identificador"
+    ],
+    "LoopEnquanto": [
+      "Enquanto Espaco LoopEnquantoOperandos Espaco OperadorLogico Espaco LoopEnquantoOperandos Ponto NovaLinha CondicaoInicio Value CondicaoFim",
     ],
     "FuncaoParametro": [
       "Tipos Espaco Identificador",
