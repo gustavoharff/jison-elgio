@@ -12,6 +12,7 @@ inteiro _Teste (inteiro Asd).
 inicio.
         Lixo = zero.
         Teste = 54.
+        elgio = 40.
 fim.
 se Lixo menor 30.
 entao.

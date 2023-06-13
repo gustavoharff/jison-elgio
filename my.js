@@ -52,21 +52,34 @@ exports.grammar = {
       "DeclaracaoLista AtribuicaoLista Condicao Funcao",
       "DeclaracaoLista AtribuicaoLista Funcao Condicao",
       "DeclaracaoLista AtribuicaoLista Condicao Funcao Condicao",
+      "DeclaracaoLista AtribuicaoLista Funcao Condicao Funcao",
+      "Condicao",
+      "Funcao",
+      "Condicao Funcao",
+      "Funcao Condicao",
+      "Condicao Funcao Condicao",
+      "Funcao Condicao Funcao",
     ],
 
     "AtribuicaoValores": [
       "Operandos",
+      "Operacao",
+      "Identificador"
+    ],
+
+    "AtribuicaoOpcao": [
+      "Identificador",
       "Elgio"
     ],
 
     "Atribuicao": [
-      "Identificador Espaco = Espaco AtribuicaoValores Ponto NovaLinha",
-      "Identificador Espaco = Espaco AtribuicaoValores Ponto Espaco Comentario NovaLinha",
-      "Espaco Identificador Espaco = Espaco AtribuicaoValores Ponto NovaLinha",
-      "Espaco Identificador Espaco = Espaco AtribuicaoValores Ponto Espaco Comentario NovaLinha",
-      "Identificador Espaco = Espaco Operacao Ponto NovaLinha",
-      "Identificador Espaco = Espaco Operacao Ponto Espaco Comentario NovaLinha",
-      "Espaco Identificador Espaco = Espaco Operacao Ponto Espaco Comentario NovaLinha",
+      "AtribuicaoOpcao Espaco = Espaco AtribuicaoValores Ponto NovaLinha",
+      "AtribuicaoOpcao Espaco = Espaco AtribuicaoValores Ponto Espaco Comentario NovaLinha",
+      "Espaco AtribuicaoOpcao Espaco = Espaco AtribuicaoValores Ponto NovaLinha",
+      "Espaco AtribuicaoOpcao Espaco = Espaco AtribuicaoValores Ponto Espaco Comentario NovaLinha",
+      "AtribuicaoOpcao Espaco = Espaco Operacao Ponto NovaLinha",
+      "AtribuicaoOpcao Espaco = Espaco Operacao Ponto Espaco Comentario NovaLinha",
+      "Espaco AtribuicaoOpcao Espaco = Espaco Operacao Ponto Espaco Comentario NovaLinha",
     ],
     "Declaracao": [
       "Tipos Espaco Identificador Ponto NovaLinha",
@@ -103,10 +116,9 @@ exports.grammar = {
       "Tipos Espaco IdentificadorFuncao Espaco ( FuncaoParametro ) Ponto NovaLinha",
       "Tipos Espaco IdentificadorFuncao Espaco ( ) Ponto NovaLinha",
     ],
+
     "Funcao": [
       "FuncaoDeclaracao CondicaoInicio Value CondicaoFim",
-      "FuncaoDeclaracao CondicaoInicio Value Elgio CondicaoFim"
-
     ],
 
     "Tipos": ["Inteiro"],
