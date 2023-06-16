@@ -1,18 +1,18 @@
 inteiro Zero. # minha variavel
 inteiro Teste.
 Lixo = 34. # teste
-Lixo = 21 + 30 + 40 x 50 / 70 + _Teste (30). #asdasd
+Lixo = 21 / 30 + 40 x 50 / 70 + _Teste (30). #asdasd
 se Lixo maior zero.  # teste
 entao.
 inicio.
         Lixo = zero.
-        Teste = 300.
-fim.
+        Teste=300.
+fim. 
 inteiro _Teste (inteiro Asd).
 inicio.
         enquanto Teste maior zero.
         inicio.
-                inteiro _Teste (inteiro Asd).
+                inteiro _Teste (inteiro Asd    ,    inteiro Adfsdf).
                 inicio.
                         Lixo = zero.
                         Teste = 54.

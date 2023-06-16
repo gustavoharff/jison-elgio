@@ -1,5 +1,7 @@
 var Generator = require("jison").Parser;
 
+const regex = /\s(\/|x|\+|-)\s+/;
+
 exports.grammar = {
   lex: {
     macros: {
@@ -10,10 +12,12 @@ exports.grammar = {
       frac: "(?:\\.[0-9]+)",
     },
     rules: [
+      ["\\s+", "/* skip whitespace */"],
+      ["#.*", "/* skip comments */"],
       ["([1-9][0-9]*)", "return 'Numero'"],
       ["(_[A-Z][a-z]{2,})", "return 'IdentificadorFuncao'"],
-      ["inteiro", "return 'Inteiro'"],
-      ["se", "return 'Se'"],
+      ["inteiro\\s", "return 'Inteiro'"],
+      ["se\\s", "return 'Se'"],
       ["entao", "return 'Entao'"],
       ["inicio", "return 'Inicio'"],
       ["fim", "return 'Fim'"],
@@ -21,22 +25,19 @@ exports.grammar = {
       ["menor", "return 'Menor'"],
       ["igual", "return 'Igual'"],
       ["elgio", "return 'Elgio'"],
-      ["enquanto", "return 'Enquanto'"],
+      ["enquanto\\s", "return 'Enquanto'"],
       ["diferente", "return 'Diferente'"],
       ["zero", "return 'Zero'"],
       ["[(]", "return '('"],
       ["[)]", "return ')'"],
       ["[,]", "return 'Virgula'"],
-      ["[+]", "return 'Mais'"],
-      ["[-]", "return 'Menos'"],
-      ["[x]", "return 'Multiplicacao'"],
-      ["[/]", "return 'Divisao'"],
+      ["\\s*[+]\\s*", "return 'Mais'"],
+      ["\\s*[-]\\s*", "return 'Menos'"],
+      ["\\s*[x]\\s*", "return 'Multiplicacao'"],
+      ["\\s*[/]\\s*", "return 'Divisao'"],
       ["([A-Z][a-z]{2,})", "return 'Identificador'"],
-      ["#.*?(?=\r?\n)", "return 'Comentario'"],
       ["[.]", "return 'Ponto'"],
       ["(=)", "return '='"],
-      ["([ \t]+)", "return 'Espaco'"],
-      ["\\n", "return 'NovaLinha'"],
     ],
   },
 
@@ -44,8 +45,8 @@ exports.grammar = {
   start: "Value",
 
   bnf: {
-    "Value": [
-      "Espaco Value",
+    Value: [
+      "Value",
       "DeclaracaoLista",
       "DeclaracaoLista Value",
       "AtribuicaoLista",
@@ -53,108 +54,51 @@ exports.grammar = {
       "Funcao Value",
       "Condicao Value",
       "LoopEnquanto Value",
-      ""
+      "",
     ],
-
-    "AtribuicaoValores": [
-      "Operandos",
-      "Operacao",
-      "Identificador"
+    AtribuicaoValores: ["Operandos", "Operacao", "Identificador"],
+    AtribuicaoOpcao: ["Identificador", "Elgio"],
+    Atribuicao: [
+      "AtribuicaoOpcao = AtribuicaoValores Ponto",
+      "AtribuicaoOpcao = Operacao Ponto",
     ],
-
-    "AtribuicaoOpcao": [
+    Declaracao: ["Tipos Identificador Ponto"],
+    CondicaoSe: ["Se Identificador OperadorLogico Numeros Ponto"],
+    CondicaoEntao: ["Entao Ponto", "Entao Ponto"],
+    CondicaoInicio: ["Inicio Ponto", "CondicaoInicio"],
+    CondicaoFim: ["Fim Ponto", "Fim Ponto"],
+    Condicao: ["CondicaoSe CondicaoEntao CondicaoInicio Value CondicaoFim"],
+    LoopEnquantoOperandos: ["Numeros", "Identificador"],
+    LoopEnquanto: [
+      "Enquanto LoopEnquantoOperandos OperadorLogico LoopEnquantoOperandos Ponto CondicaoInicio Value CondicaoFim",
+    ],
+    FuncaoParametro: [
+      "Tipos Identificador",
+      "Tipos Identificador Virgula FuncaoParametro",
+    ],
+    FuncaoDeclaracao: [
+      "Tipos IdentificadorFuncao ( FuncaoParametro ) Ponto",
+      "Tipos IdentificadorFuncao ( ) Ponto",
+    ],
+    Funcao: ["FuncaoDeclaracao CondicaoInicio Value CondicaoFim"],
+    Tipos: ["Inteiro"],
+    ParametroFuncao: [
       "Identificador",
-      "Elgio"
-    ],
-
-    "Atribuicao": [
-      "AtribuicaoOpcao Espaco = Espaco AtribuicaoValores Ponto NovaLinha",
-      "AtribuicaoOpcao Espaco = Espaco AtribuicaoValores Ponto Espaco Comentario NovaLinha",
-      "Espaco AtribuicaoOpcao Espaco = Espaco AtribuicaoValores Ponto NovaLinha",
-      "Espaco AtribuicaoOpcao Espaco = Espaco AtribuicaoValores Ponto Espaco Comentario NovaLinha",
-      "AtribuicaoOpcao Espaco = Espaco Operacao Ponto NovaLinha",
-      "AtribuicaoOpcao Espaco = Espaco Operacao Ponto Espaco Comentario NovaLinha",
-      "Espaco AtribuicaoOpcao Espaco = Espaco Operacao Ponto Espaco Comentario NovaLinha",
-    ],
-    "Declaracao": [
-      "Tipos Espaco Identificador Ponto NovaLinha",
-      "Tipos Espaco Identificador Ponto Espaco Comentario NovaLinha",
-      "Espaco Tipos Espaco Identificador Ponto NovaLinha",
-      "Espaco Tipos Espaco Identificador Ponto Espaco Comentario NovaLinha",
-    ],
-    "CondicaoSe": [
-      "Se Espaco Identificador Espaco OperadorLogico Espaco Numeros Ponto NovaLinha",
-      "Se Espaco Identificador Espaco OperadorLogico Espaco Numeros Ponto Espaco Comentario NovaLinha",
-    ],
-    "CondicaoEntao": [
-      "Entao Ponto NovaLinha",
-      "Entao Ponto Espaco Comentario NovaLinha",
-    ],
-    "CondicaoInicio": [
-      "Inicio Ponto NovaLinha",
-      "Inicio Ponto Espaco Comentario NovaLinha",
-      "Espaco CondicaoInicio"
-    ],
-    "CondicaoFim": [
-      "Fim Ponto",
-      "Fim Ponto Espaco Comentario",
-      "Fim Ponto NovaLinha",
-      "Fim Ponto Espaco Comentario NovaLinha",
-    ],
-    "Condicao": [
-      "CondicaoSe CondicaoEntao CondicaoInicio Value CondicaoFim",
-    ],
-    "LoopEnquantoOperandos": [
+      "Identificador Virgula ParametroFuncao",
       "Numeros",
-      "Identificador"
+      "Numeros Virgula ParametroFuncao",
     ],
-    "LoopEnquanto": [
-      "Enquanto Espaco LoopEnquantoOperandos Espaco OperadorLogico Espaco LoopEnquantoOperandos Ponto NovaLinha CondicaoInicio Value CondicaoFim",
+    ChamadaFuncao: ["IdentificadorFuncao ( ParametroFuncao )"],
+    Operandos: ["Numeros", "ChamadaFuncao"],
+    Operacao: [
+      "Operandos Operadores Operandos",
+      "Operacao Operadores Operacao",
     ],
-    "FuncaoParametro": [
-      "Tipos Espaco Identificador",
-      "Tipos Espaco Identificador Virgula Espaco FuncaoParametro"
-    ],
-    "FuncaoDeclaracao": [
-      "Tipos Espaco IdentificadorFuncao Espaco ( FuncaoParametro ) Ponto NovaLinha",
-      "Tipos Espaco IdentificadorFuncao Espaco ( ) Ponto NovaLinha",
-    ],
-
-    "Funcao": [
-      "FuncaoDeclaracao CondicaoInicio Value CondicaoFim",
-    ],
-
-    "Tipos": ["Inteiro"],
-
-    "ParametroFuncao": [
-      "Identificador",
-      "Identificador Virgula Espaco ParametroFuncao",
-      "Numeros",
-      "Numeros Virgula Espaco ParametroFuncao",
-    ],
-
-    "ChamadaFuncao": [
-      "IdentificadorFuncao Espaco ( ParametroFuncao )",
-    ],
-
-    "Operandos": [
-      "Numeros",
-      "ChamadaFuncao"
-    ],
-
-    "Operacao": [
-      "Operandos Espaco Operadores Espaco Operandos",
-      "Operacao Espaco Operadores Espaco Operandos",
-    ],
-
-    "Operadores": ["Mais", "Menos", "Multiplicacao", "Divisao"],
-
-    "DeclaracaoLista": ["Declaracao", "DeclaracaoLista Declaracao"],
-    "AtribuicaoLista": ["Atribuicao", "AtribuicaoLista Atribuicao"],
-
-    "OperadorLogico": ["Maior", "Menor", "Igual", "Diferente"],
-
-    "Numeros": ["Numero", "Zero"],
+    Operadores: ["Mais", "Menos", "Multiplicacao", "Divisao"],
+    DeclaracaoLista: ["Declaracao", "DeclaracaoLista Declaracao"],
+    AtribuicaoLista: ["Atribuicao", "AtribuicaoLista Atribuicao"],
+    OperadorLogico: ["Maior", "Menor", "Igual", "Diferente"],
+    Numeros: ["Numero", "Zero"],
   },
 };
 
