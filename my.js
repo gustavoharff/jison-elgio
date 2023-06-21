@@ -42,7 +42,7 @@ exports.grammar = {
     ],
   },
 
-  tokens: "Identificador",
+  tokens: "Numero, IdentificadorFuncao Inteiro Se Senao Entao Inicio Fim Maior Menor Igual Elgio Enquanto Diferente Zero ( ) Virgula Mais Menos Multiplicacao Divisao Identificador Ponto =",
   start: "Value",
 
   bnf: {
@@ -54,7 +54,6 @@ exports.grammar = {
       "Funcao",
       "Condicao",
       "LoopEnquanto",
-      "",
       "Value Value",
     ],
     AtribuicaoValores: ["Operandos", "Operacao", "Identificador"],
