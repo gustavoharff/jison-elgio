@@ -8,6 +8,9 @@ inicio.
         Lixo = zero.
         Teste=300.
 fim. 
+senao.
+inicio.
+fim.
 inteiro _Teste (inteiro Asd).
 inicio.
         enquanto Teste maior zero.
@@ -30,4 +33,23 @@ entao.
 inicio.
         Lixo = 10.
         Teste = 54.
+fim.
+senao.
+inicio.
+fim.
+
+se Teste maior Lixo.
+entao.
+inicio.
+   Teste = 45 x Lixo.
+fim.
+senao.
+inicio.
+fim.
+
+inteiro _Fazalgo (inteiro Num, inteiro Dois).
+inicio.
+    inteiro Temp.
+    Temp = 20 x _Soma(Num, Dois).
+    elgio = Temp.
 fim.
