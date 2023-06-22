@@ -34,7 +34,7 @@ exports.grammar = {
   },
 
   tokens:
-    "Numero, IdentificadorFuncao Inteiro Se Senao Entao Inicio Fim Maior Menor Igual Elgio Enquanto Diferente Zero ( ) Virgula Mais Menos Multiplicacao Divisao Identificador Ponto =",
+    "Numero IdentificadorFuncao Inteiro Se Senao Entao Inicio Fim Maior Menor Igual Elgio Enquanto Diferente Zero ( ) Virgula Mais Menos Multiplicacao Divisao Identificador Ponto =",
   start: "Value",
 
   bnf: {
