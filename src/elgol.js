@@ -2,13 +2,6 @@ var Generator = require("jison").Parser;
 
 exports.grammar = {
   lex: {
-    macros: {
-      digit: "[0-9]",
-      esc: "\\\\",
-      int: "-?(?:[0-9]|[1-9][0-9]+)",
-      exp: "(?:[eE][-+]?[0-9]+)",
-      frac: "(?:\\.[0-9]+)",
-    },
     rules: [
       ["\\s+", "/* skip whitespace */"],
       ["#.*", "/* skip comments */"],
