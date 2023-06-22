@@ -1,12 +1,14 @@
 ## jison
 
-Instalar dependências:
+### Instalar dependências:
 
 ```bash
 npm install
 ```
 
-Rodar verificação
+### Rodar verificação
+
+Altere arquivo `./src/file.txt` com o código a ser verificado.
 
 ```bash
 npm run start
