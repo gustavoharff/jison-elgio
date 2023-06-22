@@ -1,7 +1,5 @@
 var Generator = require("jison").Parser;
 
-const regex = /\s(\/|x|\+|-)\s+/;
-
 exports.grammar = {
   lex: {
     macros: {
@@ -42,7 +40,8 @@ exports.grammar = {
     ],
   },
 
-  tokens: "Numero, IdentificadorFuncao Inteiro Se Senao Entao Inicio Fim Maior Menor Igual Elgio Enquanto Diferente Zero ( ) Virgula Mais Menos Multiplicacao Divisao Identificador Ponto =",
+  tokens:
+    "Numero, IdentificadorFuncao Inteiro Se Senao Entao Inicio Fim Maior Menor Igual Elgio Enquanto Diferente Zero ( ) Virgula Mais Menos Multiplicacao Divisao Identificador Ponto =",
   start: "Value",
 
   bnf: {
@@ -62,7 +61,9 @@ exports.grammar = {
       "Elgio = OperacaoElgio Ponto",
     ],
     AtribuicaoValoresElgio: [
-      "OperandosElgio", "OperacaoElgio", "Identificador"
+      "OperandosElgio",
+      "OperacaoElgio",
+      "Identificador",
     ],
     OperacaoElgio: [
       "OperandosElgio Operadores OperandosElgio",
@@ -71,11 +72,16 @@ exports.grammar = {
     OperandosElgio: ["Numeros", "Identificador"],
     Declaracao: ["Tipos Identificador Ponto"],
     CondicaoSe: ["Se OperandosCondicao OperadorLogico OperandosCondicao Ponto"],
-    CondicaoSenao: ["Senao Ponto CondicaoInicio CondicaoFim", "Senao Ponto CondicaoInicio Value CondicaoFim"],
+    CondicaoSenao: [
+      "Senao Ponto CondicaoInicio CondicaoFim",
+      "Senao Ponto CondicaoInicio Value CondicaoFim",
+    ],
     CondicaoEntao: ["Entao Ponto"],
-    CondicaoInicio: ["Inicio Ponto",],
+    CondicaoInicio: ["Inicio Ponto"],
     CondicaoFim: ["Fim Ponto"],
-    Condicao: ["CondicaoSe CondicaoEntao CondicaoInicio Value CondicaoFim CondicaoSenao"],
+    Condicao: [
+      "CondicaoSe CondicaoEntao CondicaoInicio Value CondicaoFim CondicaoSenao",
+    ],
     LoopEnquanto: [
       "Enquanto OperandosCondicao OperadorLogico OperandosCondicao Ponto CondicaoInicio Value CondicaoFim",
     ],
