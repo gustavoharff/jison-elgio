@@ -48,8 +48,6 @@ exports.grammar = {
   bnf: {
     Value: [
       "DeclaracaoLista",
-      "DeclaracaoLista",
-      "AtribuicaoLista",
       "AtribuicaoLista",
       "Funcao",
       "Condicao",
@@ -102,7 +100,7 @@ exports.grammar = {
     OperandosCondicao: ["Numeros", "Identificador"],
     Operacao: [
       "Operandos Operadores Operandos",
-      "Operacao Operadores Operacao",
+      "Operacao Operadores Operandos",
     ],
     Operadores: ["Mais", "Menos", "Multiplicacao", "Divisao"],
     DeclaracaoLista: ["Declaracao", "DeclaracaoLista Declaracao"],
