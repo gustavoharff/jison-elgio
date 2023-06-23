@@ -46,17 +46,14 @@ exports.grammar = {
       "LoopEnquanto",
       "Value Value",
     ],
-    AtribuicaoValores: ["Operandos", "Operacao", "Identificador"],
+    AtribuicaoValores: ["Operacao", "Operandos"],
     Atribuicao: [
       "Identificador = AtribuicaoValores Ponto",
-      "Identificador = Operacao Ponto",
       "Elgio = AtribuicaoValoresElgio Ponto",
-      "Elgio = OperacaoElgio Ponto",
     ],
     AtribuicaoValoresElgio: [
       "OperandosElgio",
       "OperacaoElgio",
-      "Identificador",
     ],
     OperacaoElgio: [
       "OperandosElgio Operadores OperandosElgio",
